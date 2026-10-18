@@ -1,5 +1,584 @@
----
-layout: home
-# articles:
-#   excerpt_type: html
----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hrithik Kulkarni | Platform Engineering Profile</title>
+  <style>
+    :root {
+      --bg-primary: #0f172a;
+      --bg-secondary: #1e293b;
+      --bg-card: #334155;
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent: #38bdf8;
+      --accent-hover: #0284c7;
+      --border: #475569;
+      --tag-bg: #0369a1;
+      --tag-text: #e0f2fe;
+      --shadow: rgba(0, 0, 0, 0.35);
+    }
+
+    [data-theme="light"] {
+      --bg-primary: #f8fafc;
+      --bg-secondary: #ffffff;
+      --bg-card: #f1f5f9;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --accent: #0284c7;
+      --accent-hover: #0369a1;
+      --border: #cbd5e1;
+      --tag-bg: #bae6fd;
+      --tag-text: #0369a1;
+      --shadow: rgba(0, 0, 0, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 2rem 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    header {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 10px 25px var(--shadow);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .profile-info {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+    }
+
+    .avatar {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      border: 3px solid var(--accent);
+      object-fit: cover;
+      background-color: var(--bg-card);
+    }
+
+    .details h1 {
+      font-size: 2.1rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .details h2 {
+      font-size: 1.1rem;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .details p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      max-width: 600px;
+    }
+
+    .header-controls {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 1rem;
+    }
+
+    .theme-toggle {
+      background-color: var(--bg-card);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .theme-toggle:hover {
+      border-color: var(--accent);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .social-btn {
+      color: var(--text-primary);
+      text-decoration: none;
+      background-color: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 0.5rem 0.9rem;
+      border-radius: 6px;
+      font-size: 0.88rem;
+      font-weight: 500;
+    }
+
+    .social-btn:hover {
+      background-color: var(--accent);
+      color: #ffffff;
+      border-color: var(--accent);
+    }
+
+    .metrics-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .metric-card {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+
+    .metric-value {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--accent);
+      margin-bottom: 0.25rem;
+    }
+
+    .metric-label {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      margin-bottom: 1.25rem;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 0.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .skill-category-card {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+
+    .skill-category-card h3 {
+      font-size: 1.1rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .skill-pill {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      padding: 0.35rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+    }
+
+    .controls-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.75rem;
+    }
+
+    .search-box {
+      flex: 1;
+      min-width: 280px;
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
+    }
+
+    .search-box:focus {
+      outline: 2px solid var(--accent);
+    }
+
+    .filter-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .filter-btn {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.88rem;
+      font-weight: 500;
+    }
+
+    .filter-btn.active, .filter-btn:hover {
+      background-color: var(--accent);
+      color: #ffffff;
+      border-color: var(--accent);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .project-card {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 4px 15px var(--shadow);
+    }
+
+    .project-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.75rem;
+    }
+
+    .project-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+
+    .project-title:hover {
+      color: var(--accent);
+    }
+
+    .project-tag {
+      background-color: var(--tag-bg);
+      color: var(--tag-text);
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .project-desc {
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+      margin-bottom: 1.25rem;
+      flex-grow: 1;
+    }
+
+    .project-highlights {
+      list-style-type: none;
+      border-top: 1px solid var(--border);
+      padding-top: 1rem;
+    }
+
+    .project-highlights li {
+      font-size: 0.85rem;
+      color: var(--text-primary);
+      margin-bottom: 0.4rem;
+      position: relative;
+      padding-left: 1.2rem;
+    }
+
+    .project-highlights li::before {
+      content: "▹";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 0;
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="profile-info">
+      <img src="https://avatars.githubusercontent.com/u/hk10111" alt="Hrithik Kulkarni Avatar" class="avatar" id="avatarImg">
+      <div class="details">
+        <h1 id="authorName">Hrithik Kulkarni</h1>
+        <h2 id="authorRole">Software Engineer @ Confluent</h2>
+        <p id="authorBio">Infrastructure and software engineer driving containerization standards, base OS migrations (UBI9), and automated build pipelines across the Confluent Platform ecosystem.</p>
+      </div>
+    </div>
+    <div class="header-controls">
+      <button class="theme-toggle" id="themeToggleBtn">☀️ Toggle Theme</button>
+      <div class="social-links">
+        <a href="https://github.com/hk10111" target="_blank" class="social-btn">GitHub</a>
+        <a href="https://linkedin.com/in/hrithik-kulkarni" target="_blank" class="social-btn">LinkedIn</a>
+        <a href="mailto:hkulkarni@confluent.io" class="social-btn">Email</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="metrics-container">
+    <div class="metric-card">
+      <div class="metric-value">146+</div>
+      <div class="metric-label">Confluent PRs & Issues</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value">UBI9</div>
+      <div class="metric-label">Base OS Standard</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value">6+</div>
+      <div class="metric-label">Core Repositories</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value">Active</div>
+      <div class="metric-label">CI/CD & Docker Refresh</div>
+    </div>
+  </section>
+
+  <h2 class="section-title">Technical Skill Domains</h2>
+  <section class="skills-grid" id="skillsContainer"></section>
+
+  <h2 class="section-title">
+    <span>Repository Contributions & Projects</span>
+  </h2>
+
+  <div class="controls-bar">
+    <input type="text" id="searchInput" class="search-box" placeholder="Search projects, categories, or keywords (e.g. UBI9, Docker, Control Center)...">
+    <div class="filter-buttons" id="filterBtnContainer">
+      <button class="filter-btn active" data-category="ALL">All</button>
+      <button class="filter-btn" data-category="Platform UI">Platform UI</button>
+      <button class="filter-btn" data-category="REST API">REST API</button>
+      <button class="filter-btn" data-category="Replication">Replication</button>
+      <button class="filter-btn" data-category="Stream Processing">Stream Processing</button>
+      <button class="filter-btn" data-category="Governance">Governance</button>
+      <button class="filter-btn" data-category="Research">Research</button>
+    </div>
+  </div>
+
+  <section class="projects-grid" id="projectsContainer"></section>
+
+  <footer>
+    <p>Rendered dynamically from <code>_config.yml</code> specification | Hrithik Kulkarni (hk10111) Engineering Portfolio</p>
+  </footer>
+
+  <script>
+    const configData = {
+      skills: [
+        {
+          category: "Infrastructure & Containerization",
+          items: ["Docker", "Red Hat UBI9", "Kubernetes", "Maven Assembly Plugin", "Dockerfile Maven Plugin"]
+        },
+        {
+          category: "Event Streaming Architecture",
+          items: ["Apache Kafka", "Confluent Control Center", "KSQL", "Kafka REST Proxy", "Kafka Replicator", "Schema Registry"]
+        },
+        {
+          category: "CI/CD & Code Quality",
+          items: ["Semaphore CI", "Jenkins", "SonarQube", "GitHub Actions", "Python", "Shell Scripting"]
+        }
+      ],
+      projects: [
+        {
+          name: "control-center-images",
+          org: "confluentinc",
+          url: "https://github.com/confluentinc/control-center-images",
+          description: "Docker build specifications and integration test infrastructure for Confluent Control Center.",
+          category: "Platform UI",
+          highlights: [
+            "CPBR-2230: Docker refresh for C3 images (PR #110)",
+            "Test suite enablement and build optimization (PR #108, PR #111)"
+          ]
+        },
+        {
+          name: "kafka-rest-images",
+          org: "confluentinc",
+          url: "https://github.com/confluentinc/kafka-rest-images",
+          description: "Containerization and entrypoint scripts for Confluent Kafka REST Proxy services.",
+          category: "REST API",
+          highlights: [
+            "CPBR-2274: Comprehensive Docker refresh and security upgrades (PR #91)"
+          ]
+        },
+        {
+          name: "kafka-replicator-images",
+          org: "confluentinc",
+          url: "https://github.com/confluentinc/kafka-replicator-images",
+          description: "Multi-cluster data replication container builds and base image dependencies.",
+          category: "Replication",
+          highlights: [
+            "Migrated container base OS layer to Red Hat Universal Base Image 9 (UBI9)"
+          ]
+        },
+        {
+          name: "ksql-images",
+          org: "confluentinc",
+          url: "https://github.com/confluentinc/ksql-images",
+          description: "Docker build scripts and dependency configurations for KSQL engine.",
+          category: "Stream Processing",
+          highlights: [
+            "General container refactoring and build maintenance (PR #178)"
+          ]
+        },
+        {
+          name: "schema-registry-images",
+          org: "confluentinc",
+          url: "https://github.com/confluentinc/schema-registry-images",
+          description: "Container images for Confluent Schema Registry and data governance tooling.",
+          category: "Governance",
+          highlights: [
+            "SonarQube code analysis configuration reset and test exclusion rules"
+          ]
+        },
+        {
+          name: "deep-air",
+          org: "hk10111",
+          url: "https://github.com/hk10111/deep-air",
+          description: "Personal open-source research repository exploring deep learning applications.",
+          category: "Research",
+          highlights: [
+            "Prototyped machine learning pipeline and model training architecture"
+          ]
+        }
+      ]
+    };
+
+    function renderSkills() {
+      const container = document.getElementById('skillsContainer');
+      container.innerHTML = configData.skills.map(cat => `
+        <div class="skill-category-card">
+          <h3>${cat.category}</h3>
+          <div class="skill-tags">
+            ${cat.items.map(item => `<span class="skill-pill">${item}</span>`).join('')}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderProjects(projectsToRender) {
+      const container = document.getElementById('projectsContainer');
+      if (projectsToRender.length === 0) {
+        container.innerHTML = '<p style="color: var(--text-secondary); grid-column: 1/-1; text-align: center; padding: 2rem;">No repositories matched your filter criteria.</p>';
+        return;
+      }
+
+      container.innerHTML = projectsToRender.map(proj => `
+        <div class="project-card">
+          <div>
+            <div class="project-header">
+              <a href="${proj.url}" target="_blank" class="project-title">${proj.org}/${proj.name}</a>
+              <span class="project-tag">${proj.category}</span>
+            </div>
+            <p class="project-desc">${proj.description}</p>
+          </div>
+          <ul class="project-highlights">
+            ${proj.highlights.map(h => `<li>${h}</li>`).join('')}
+          </ul>
+        </div>
+      `).join('');
+    }
+
+    function setupInteractivity() {
+      const themeBtn = document.getElementById('themeToggleBtn');
+      themeBtn.addEventListener('click', () => {
+        const currentTheme = document.body.getAttribute('data-theme');
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        document.body.setAttribute('data-theme', newTheme);
+      });
+
+      let currentCategory = 'ALL';
+      let searchQuery = '';
+
+      function filterData() {
+        const filtered = configData.projects.filter(proj => {
+          const matchesCategory = currentCategory === 'ALL' || proj.category === currentCategory;
+          const matchString = (proj.name + ' ' + proj.description + ' ' + proj.highlights.join(' ')).toLowerCase();
+          const matchesSearch = matchString.includes(searchQuery.toLowerCase());
+          return matchesCategory && matchesSearch;
+        });
+        renderProjects(filtered);
+      }
+
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          filterBtns.forEach(b => b.classList.remove('active'));
+          e.target.classList.add('active');
+          currentCategory = e.target.getAttribute('data-category');
+          filterData();
+        });
+      });
+
+      const searchInput = document.getElementById('searchInput');
+      searchInput.addEventListener('input', (e) => {
+        searchQuery = e.target.value;
+        filterData();
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderSkills();
+      renderProjects(configData.projects);
+      setupInteractivity();
+    });
+  </script>
+</body>
+</html>
